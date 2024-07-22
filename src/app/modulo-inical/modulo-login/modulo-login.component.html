@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-5">
+      <div class="card">
+        <img src="assets/free-images/img1.jpg">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="w-100">
+              <h3 class="mb-4">Login</h3>
+            </div>
+          </div>
+          <form [formGroup]="formularioLogin" (ngSubmit)="login()">
+            <div class="form-group mt-3">
+              <label class="form-control-placeholder" for="correo">Usuario</label>
+              <input type="text" class="form-control" formControlName="correo">
+              <div *ngIf="hasErrors('correo', 'required')" class="text-danger">
+                Correo es requerido.
+              </div>
+              <div *ngIf="hasErrors('correo', 'email')" class="text-danger">
+                Correo no es válido.
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-placeholder" for="contrasena">Contraseña</label>
+              <input id="password-field" type="password" class="form-control" formControlName="contrasena">
+              <div *ngIf="hasErrors('contrasena', 'required')" class="text-danger">
+                Contraseña es requerida.
+              </div>
+              <div *ngIf="hasErrors('contrasena', 'minlength')" class="text-danger">
+                Contraseña requiere mínimo 6 caracteres.
+              </div>
+            </div>
+    
+            <br>
+            <div class="form-group">
+              <button type="submit" class="form-control btn btn-primary rounded submit px-3">Entrar</button>
+            </div>
+            <div class="form-group d-md-flex">
+              <div class="w-50 text-md-right">
+                <a href="#">¿Se te olvidó la contraseña?</a>
+              </div>
+            </div>
+          </form>
+          <p class="text-center">¿No tienes cuenta? <a data-toggle="tab" href="#signup">Registrarse</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

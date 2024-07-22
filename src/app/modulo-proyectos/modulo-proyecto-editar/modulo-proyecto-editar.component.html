@@ -1,0 +1,234 @@
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h1>{{nombre_tipo}} </h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <form>
+            <!-- Fila 1: Tipo construcción, botón Nuevo -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="tipoConstruccion" class="col-form-label small">Tipo construcción</label>
+                </div>
+                <div class="col-auto">
+                    <select id="tipoConstruccion" class="form-select form-select-sm" style="width: 10rem;">
+                        <option>Casa</option>
+                        <option>Edificio</option>
+                        <option>Puente</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="encargado" class="col-form-label small">Encargado</label>
+                </div>
+                <div class="col-auto">  
+                    <input type="text" class="form-control form-control-sm" id="encargado">
+                </div>
+                
+               
+                <div class="col-auto">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-sm" style="width: 15rem;">Nuevo</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Fila 2: Nombre, Id, Estado de proyecto -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="nombreProyecto" class="col-form-label small">Nombre</label>
+             
+                </div>
+                <div class="col-auto">  
+                    <input type="text" class="form-control form-control-sm" id="nombreProyecto">
+                </div>
+                <div class="col-auto">
+                    <label for="idProyecto" class="col-form-label small">ID</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="idProyecto">
+                </div>
+                <div class="col-auto">
+                    <label for="estadoProyecto" class="col-form-label small">Estado de proyecto</label>
+                 
+                </div>
+                <div class="col-auto">
+                    <select id="estadoProyecto" class="form-select form-select-sm">
+                        <option>Abierto</option>
+                        <option>Cancelado</option>
+                        <option>Progreso</option>
+                    </select>
+                </div>
+            </div>
+    
+            <!-- Fila 3: Estado, Municipio, C.P. -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="estado" class="col-form-label small">Estado</label>
+                    
+                </div>
+                <div class="col-auto">
+                  
+                    <input type="text" class="form-control form-control-sm" id="estado">
+                </div>
+                <div class="col-auto">
+                    <label for="municipio" class="col-form-label small">Municipio</label>
+                </div>
+                <div class="col-auto">
+                    
+                    <input type="text" class="form-control form-control-sm" id="municipio">
+                </div>
+                <div class="col-auto">
+                    <label for="codigoPostal" class="col-form-label small">C.P.</label>
+                    
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="codigoPostal">
+                </div>
+            </div>
+    
+            <!-- Fila 4: Fecha inicio, fecha fin -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="fechaInicio" class="col-form-label small">Fecha inicio</label>
+                </div>
+                <div class="col-auto">
+             
+                    <input type="date" class="form-control form-control-sm" id="fechaInicio">
+                </div>
+                <div class="col-auto">
+                    <label for="fechaInicio" class="col-form-label small">-----</label>
+                </div>
+                <div class="col-auto">
+                    <label for="fechaFin" class="col-form-label small">Fecha fin</label>
+                 
+                </div>
+                <div class="col-auto">
+               
+                    <input type="date" class="form-control form-control-sm" id="fechaFin">
+                </div>
+            </div>
+    
+            <!-- Fila 5: Botón buscar, botón limpiar -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="d-flex justify-content-center">
+                    <div class="col-auto" style="margin-right: 2rem;">
+                        <button type="submit" class="btn btn-primary btn-sm" style="width: 15rem;">Buscar</button>
+                    </div>
+                    
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-secondary btn-sm" style="width: 15rem;">Limpiar</button>     
+                    </div>
+
+                </div>
+          
+                       
+            </div>
+        </form>
+
+    </div>
+    <br><br>
+
+    
+    <div class="d-flex justify-content-center">
+     
+        <div class="card-group">
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Ver</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Modificar</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Eliminar</button>
+                </div>
+                
+              <div class="card-body">
+                <h5 class="card-title">Compra de materiales</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Ver</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Modificar</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Eliminar</button>
+                </div>
+              <div class="card-body">
+                <h5 class="card-title">Firma de papeleria</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Ver</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Modificar</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Eliminar</button>
+                </div>
+              <div class="card-body">
+                <h5 class="card-title">Contratación de Personal</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div class="d-flex justify-content-center">
+     
+        <div class="card-group">
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Ver</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Modificar</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Eliminar</button>
+                </div>
+              <div class="card-body">
+                <h5 class="card-title">Compra de materiales</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Ver</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Modificar</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Eliminar</button>
+                </div>
+              <div class="card-body">
+                <h5 class="card-title">Firma de papeleria</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="card">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Ver</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Modificar</button>
+                    <button type="submit" class="btn btn-primary btn-sm flex-fill">Eliminar</button>
+                </div>
+              <div class="card-body">
+                <h5 class="card-title">Mas</h5>
+                <h1>Agrega imagen de mas</h1>
+              </div>
+            </div>
+          </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+    </div>
+   
+  
+</div> 

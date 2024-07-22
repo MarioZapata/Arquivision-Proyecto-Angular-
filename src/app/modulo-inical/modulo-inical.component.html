@@ -1,0 +1,82 @@
+
+
+  <div  class="container-fluid bg-dark text-white">
+    <h1 class="text-center py-4">Arquivsion</h1>
+  </div>
+
+  <!-- Carousel -->
+  <div *ngIf="activeTab === 'Carousel'" id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+       <div style="height: 30rem;"> 
+        <img src="assets/free-images/img1.jpg" class="d-block w-100" alt="First slide">
+       </div>
+        <div class="carousel-caption d-none d-md-block" style="background-color: #000;">
+          <h5>Gestión de Proyectos:</h5>
+          <p>Administra tus proyectos de principio a fin, con seguimiento de tareas, plazos y recursos.</p>
+           
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div style="height: 30rem;"> 
+          <img src="assets/free-images/img2.jpg" class="d-block w-100" alt="First slide" >
+         </div>
+        <div class="carousel-caption d-none d-md-block" style="background-color: #000;">
+          <h5>Colaboración en Tiempo Real: </h5>
+          <p>Trabaja con tu equipo en tiempo real, compartiendo actualizaciones y documentos instantáneamente.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div style="height: 30rem;"> 
+          <img src="assets/free-images/img3.jpg" class="d-block w-100" alt="First slide">
+         </div>
+        <div class="carousel-caption d-none d-md-block"  style="background-color: #000;">
+          <h5>Presupuestos y Costos: </h5>
+          <p>Genera estimaciones precisas y controla los costos de tus proyectos con nuestras herramientas financieras integradas.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <div style="background-color: #000;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </div>
+      <span class="visually-hidden">Previo</span>
+    </button>
+
+  
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <div style="background-color: #000;">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+      </div>
+      <span class="visually-hidden">Siguiente
+
+      </span>
+    </button>
+  </div>
+  
+  <!-- Tabs for Login and Register -->
+  <div class="container mt-5">
+    <div class="tabs d-flex justify-content-center">
+      <button class="tab btn btn-outline-dark mx-2" (click)="openTab('login')">Login</button>
+      <button class="tab btn btn-outline-dark mx-2" (click)="openTab('register')">Registro</button>
+    </div>
+    <div id="login" class="tabcontent mt-4">
+      
+      <app-modulo-login *ngIf="activeTab === 'login'"></app-modulo-login>
+    </div>
+    <div id="register" class="tabcontent mt-4">
+      <app-modulo-registro *ngIf="activeTab === 'register'"></app-modulo-registro>
+    </div>
+
+
+  </div>
+

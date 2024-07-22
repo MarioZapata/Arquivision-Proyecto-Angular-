@@ -1,0 +1,34 @@
+<div class="container">
+    <h1>Rastreo de pedido ###</h1>
+    <app-barra-envio></app-barra-envio>
+    <br><br><br>
+    <div class="d-flex justify-content-center">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Id Pedido</th>
+                    <th scope="col">Nombre del Material</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Costo Individual</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let material of materiales; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ material.nombre }}</td>
+                    <td>{{ material.cantidad }}</td>
+                    <td>{{ material.costoIndividual | currency }}</td>
+                    <td>{{ material.total | currency }}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="eliminarMaterial(i)">Eliminar</button>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

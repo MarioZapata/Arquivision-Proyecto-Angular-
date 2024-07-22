@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">Registro</h3>
+          <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="name-tab" data-bs-toggle="tab" data-bs-target="#name" type="button" role="tab" aria-controls="name" aria-selected="true">Usuario</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">Detalle</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contacto</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="name" role="tabpanel" aria-labelledby="name-tab">
+                <div class="row gy-2 gx-3 align-items-center mb-3">
+                  <div class="col-md-12">
+                    <label for="correo" class="col-form-label small">Correo</label>
+                    <input type="text" class="form-control form-control-sm" id="correo" formControlName="Correo">
+                    <div *ngIf="hasErrors('Correo', 'required')" class="text-danger">Correo es requerido.</div>
+                    <div *ngIf="hasErrors('Correo', 'email')" class="text-danger">Correo no es válido.</div>
+                  </div>
+                </div>
+                <div class="row gy-2 gx-3 align-items-center">
+                  <div class="col-md-6">
+                    <label for="nombre" class="col-form-label small">Nombre(s)</label>
+                    <input type="text" class="form-control form-control-sm" id="nombre" formControlName="Nombre">
+                    <div *ngIf="hasErrors('Nombre', 'required')" class="text-danger">Nombre es requerido.</div>
+                    <div *ngIf="hasErrors('Nombre', 'minlength')" class="text-danger">Nombre requiere mínimo 3 caracteres.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="apellidoPaterno" class="col-form-label ">Apellido Paterno</label>
+                    <input type="text" class="form-control form-control-sm" id="ApellidoPaterno" formControlName="ApellidoPaterno">
+                    <div *ngIf="hasErrors('ApellidoPaterno', 'required')" class="text-danger">Apellido Paterno es requerido.</div>
+                  </div>
+                </div>
+                <div class="row gy-2 gx-3 align-items-center">
+                  <div class="col-md-6">
+                    <label for="apellidoMaterno" class="col-form-label small">Apellido Materno</label>
+                    <input type="text" class="form-control form-control-sm" id="ApellidoMaterno" formControlName="ApellidoMaterno">
+                    <div *ngIf="hasErrors('ApellidoMaterno', 'required')" class="text-danger">Apellido Materno es requerido.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="edad" class="col-form-label ">Edad</label>
+                    <input type="number" class="form-control form-control-sm" id="Edad" formControlName="Edad">
+                    <div *ngIf="hasErrors('Edad', 'required')" class="text-danger">Edad es requerida.</div>
+                    <div *ngIf="hasErrors('Edad', 'min')" class="text-danger">Edad debe ser mayor a 18.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                <div class="row gy-2 gx-3 align-items-center mb-3">
+                  <div class="col-md-12">
+                    <label for="direccion" class="col-form-label small">Dirección</label>
+                    <input type="text" class="form-control form-control-sm" id="Direccion" formControlName="Direccion">
+                    <div *ngIf="hasErrors('Direccion', 'required')" class="text-danger">Dirección es requerida.</div>
+                  </div>
+                </div>
+                <div class="row gy-2 gx-3 align-items-center mb-3">
+                  <div class="col-md-12">
+                    <label for="Contrasena" class="col-form-label small">Contraseña</label>
+                    <input type="password" class="form-control form-control-sm" id="Contrasena" formControlName="Contrasena">
+                    <div *ngIf="hasErrors('Contrasena', 'required')" class="text-danger">Contraseña es requerida.</div>
+                    <div *ngIf="hasErrors('Contrasena', 'minlength')" class="text-danger">Contraseña requiere mínimo 6 caracteres.</div>
+                  </div>
+                </div>
+                <div class="row gy-2 gx-3 align-items-center mb-3">
+                  <div class="col-md-12">
+                    <label for="ConfirmarContrasena" class="col-form-label small">Confirmar Contraseña</label>
+                    <input type="password" class="form-control form-control-sm" id="ConfirmarContrasena" formControlName="ConfirmarContrasena">
+                    <div *ngIf="hasErrors('ConfirmarContrasena', 'required')" class="text-danger">Confirmar Contraseña es requerida.</div>
+                    <div *ngIf="registroForm.hasError('mismatch')" class="text-danger">Las contraseñas no coinciden.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="row gy-2 gx-3 align-items-center mb-3">
+                  <div class="col-md-12">
+                    <label for="EmpresaPertenece" class="col-form-label small">Empresa Pertenece (RFC)</label>
+                    <input type="text" class="form-control form-control-sm" id="EmpresaPertenece" formControlName="EmpresaPertenece">
+                    <div *ngIf="hasErrors('EmpresaPertenece', 'required')" class="text-danger">Empresa Pertenece es requerido.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="esPropietario" [ngModelOptions]="{standalone: true}" name="esPropietario">
+                  <label class="form-check-label" for="flexCheckDefault">¿Soy propietario de la empresa?</label>
+                </div>
+              </div>
+            </div>
+            <div class="row gy-2 gx-3 align-items-center mt-3">
+              <div class="d-flex justify-content-center">
+                <div class="col-auto" style="margin-right: 2rem;">
+                  <button type="submit" class="btn btn-primary btn-sm" style="width: 15rem;">Registrarse</button>
+                </div>
+                <div class="col-auto">
+                  <button type="reset" class="btn btn-secondary btn-sm" style="width: 15rem;">Limpiar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="row mb-3">
+      <div class="col-sm-4">
+        <br>
+        <h1>Actividad #</h1>
+      </div>
+    </div>
+    <h3>Actividad </h3>
+    <form [formGroup]="formularioActividadNueva" (ngSubmit)="onSubmit()">
+      <!-- Fila 1: Tipo actividad, Encargado -->
+      <div class="row mb-3">
+        <label for="tipoActividad" class="col-sm-2 col-form-label">Tipo actividad</label>
+        <div class="col-sm-4">
+          <select id="tipoActividad" class="form-select form-select-sm" formControlName="tipoActividad">
+            <option *ngFor="let iactividad of arrayTipoAct let i = index" [value]="i+1">
+              {{iactividad.nombre}}
+            </option>
+    
+          </select>
+        </div>
+      </div>
+  
+      <!-- Fila 2: Nombre, Encargado -->
+      <div class="row mb-3">
+        <label for="nombreActividad" class="col-sm-2 col-form-label">Nombre</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" id="nombreActividad" formControlName="nombreActividad">
+        </div>
+        <label for="encargado" class="col-sm-2 col-form-label">Encargado</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" id="encargado" formControlName="encargado">
+        </div>
+      </div>
+  
+      <!-- Fila 3: Asignado, Prioridad -->
+      <div class="row mb-3">
+        <label for="asignado" class="col-sm-2 col-form-label">Asignado</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" id="asignado" formControlName="asignado">
+        </div>
+        <label for="prioridad" class="col-sm-2 col-form-label">Prioridad</label>
+        <div class="col-sm-4">
+          <select id="prioridad" class="form-select form-select-sm" formControlName="prioridad">
+            <option *ngFor="let iprioridad of arrayPrioridades; let i = index" [value]="i+1">
+              {{iprioridad.nombre}}
+            </option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Fila 4: Fecha inicio, Fecha fin -->
+      <div class="row mb-3">
+        <label for="fechaInicio" class="col-sm-2 col-form-label">Fecha inicio</label>
+        <div class="col-sm-4">
+          <input type="date" class="form-control form-control-sm" id="fechaInicio" formControlName="fechaInicio">
+        </div>
+        <label for="fechaFin" class="col-sm-2 col-form-label">Fecha fin</label>
+        <div class="col-sm-4">
+          <input type="date" class="form-control form-control-sm" id="fechaFin" formControlName="fechaFin">
+        </div>
+      </div>
+  
+      <!-- Checkbox -->
+      <div class="row mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="compraMateriales" (change)="toggleCompraMateriales()">
+          <label class="form-check-label" for="compraMateriales">
+            ¿Es compra de materiales?
+          </label>
+        </div>
+      </div>
+  
+      <!-- Campos adicionales para compra de materiales -->
+      <div *ngIf="isCompraMateriales">
+        <div class="row mb-3">
+          <label for="idCompra" class="col-sm-2 col-form-label">ID Compra</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" id="idCompra" formControlName="idCompra">
+          </div>
+          <label for="compania" class="col-sm-2 col-form-label">Compañia</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" id="compania" formControlName="compania">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="producto" class="col-sm-2 col-form-label">Producto</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" id="producto" formControlName="producto">
+          </div>
+          <label for="total" class="col-sm-2 col-form-label">Total</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" id="total" formControlName="total">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="fechaEntrega" class="col-sm-2 col-form-label">Fecha de entrega</label>
+          <div class="col-sm-4">
+            <input type="date" class="form-control form-control-sm" id="fechaEntrega" formControlName="fechaEntrega">
+          </div>
+        </div>
+      </div>
+      <!-- Proyecto -->
+
+      <h3>Proyecto </h3>
+      <div class="row mb-3">
+          <label for="fechaEntrega" class="col-sm-2 col-form-label">Id Proyecto</label>
+          <div class="col-sm-4">
+              <input type="text" class="form-control form-control-sm" id="Idroyecto" formControlName="IdProyecto">
+          </div>
+          <label for="fechaEntrega" class="col-sm-2 col-form-label">Nombre Proyecto</label>
+          <div class="col-sm-4">
+              <input type="text" class="form-control form-control-sm" id="compania">
+          </div>
+      </div>
+      <div class="row mb-3">
+          <button type="submit" class="btn btn-primary" style="width: 15rem;">Buscar</button>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="row mb-3">
+        <div class="col-sm-12 d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="reset" class="btn btn-secondary">Limpiar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+  

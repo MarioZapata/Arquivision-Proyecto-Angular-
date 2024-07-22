@@ -1,0 +1,164 @@
+  
+<div class="container">
+    <br>
+    <div class="row mb-3">
+      <div class="col-sm-12">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <h1>Proyectos</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <form (ngSubmit)="onSubmit()">
+            <!-- Fila 1: Tipo construcción, botón Nuevo -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="tipoConstruccion" class="col-form-label small">Tipo construcción</label>
+                </div>
+                <div class="col-auto">
+                    <select id="tipoConstruccion" class="form-select form-select-sm" style="width: 10rem;" [(ngModel)]="filtros.idTipoConstruccion" name="idTipoConstruccion">
+                        <option *ngFor="let construccion of construcciones" [value]="construccion.idTipoConstruccion">{{construccion.nombre}}</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label for="encargado" class="col-form-label small">Encargado</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="encargado" [(ngModel)]="filtros.encargado" name="encargado">
+                </div>
+                <div class="col-auto">
+                    <div class="d-grid gap-2">
+                        <a [routerLink]="['nuevo']" class="btn btn-primary btn-sm" style="width: 15rem;">Nuevo</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Fila 2: Nombre, Id, Estado de proyecto -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="nombreProyecto" class="col-form-label small">Nombre</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="nombreProyecto" [(ngModel)]="filtros.nombre" name="nombre">
+                </div>
+                <div class="col-auto">
+                    <label for="idEstadoProyecto" class="col-form-label small">Estado de proyecto</label>
+                </div>
+                
+                <div class="col-auto">
+                    <select id="idEstadoProyecto" class="form-select form-select-sm" style="width: 10rem;" [(ngModel)]="filtros.idEstadoProyecto" name="idTipoConstruccion">
+                        <option *ngFor="let estado of estados" [value]="estado.idEstadoActividad">{{estado.nombre}}</option>
+                    </select>
+                 
+                </div>
+            </div>
+            <!-- Fila 3: Estado, Municipio, C.P. -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="estado" class="col-form-label small">Estado</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="estado" [(ngModel)]="filtros.estado" name="estado">
+                </div>
+                <div class="col-auto">
+                    <label for="municipio" class="col-form-label small">Municipio</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="municipio" [(ngModel)]="filtros.municipio" name="municipio">
+                </div>
+                <div class="col-auto">
+                    <label for="codigoPostal" class="col-form-label small">C.P.</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control form-control-sm" id="codigoPostal" [(ngModel)]="filtros.cp" name="cp">
+                </div>
+            </div>
+            <!-- Fila 4: Fecha inicio, fecha fin -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto">
+                    <label for="fechaInicio" class="col-form-label small">Fecha inicio</label>
+                </div>
+                <div class="col-auto">
+                    <input type="date" class="form-control form-control-sm" id="fechaInicio" [(ngModel)]="filtros.fechaInicio" name="fechaInicio">
+                </div>
+                <div class="col-auto">
+                    <label for="fechaFin" class="col-form-label small">Fecha fin</label>
+                </div>
+                <div class="col-auto">
+                    <input type="date" class="form-control form-control-sm" id="fechaFin" [(ngModel)]="filtros.fechaFinal" name="fechaFinal">
+                </div>
+            </div>
+            <!-- Fila 5: Botón buscar, botón limpiar -->
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="d-flex justify-content-center">
+                    <div class="col-auto" style="margin-right: 2rem;">
+                        <button type="submit" class="btn btn-primary btn-sm" style="width: 15rem;">Buscar</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-secondary btn-sm" style="width: 15rem;" (click)="limpiarFiltros()">Limpiar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <br><br><br>
+    <div class="d-flex justify-content-center">
+        <table class="table table-striped">
+            <thead>
+                <tr> 
+                    <th scope="col">#</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo construcción</th>
+                    <th scope="col">Estado P.</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Municipio</th>
+                    <th scope="col">C.P</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Ver</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let proyecto of proyectos; let i = index">
+            
+                <tr >
+                    <td>
+                        <button class="expand-btn" type="button" (click)="alternarExpansion(i)">
+                            &#8595;
+                        </button>
+                    </td>
+                    <td>{{ proyecto.idProyecto }}</td>
+                    <td>{{ proyecto.nombre }}</td>
+                    <td>{{ obtenerNombrePorId(proyecto.id_TipoConstruccion, 1) }}</td>
+                    <td>{{ obtenerNombrePorId(proyecto.idEstadoProyecto , 2)}}</td>
+                    <td>{{ proyecto.estado }}</td>
+                    <td>{{ proyecto.municipio }}</td>
+                    <td>{{ proyecto.cp }}</td>
+                    <td>
+                        <a (click)="editarProyecto(proyecto)" class="btn btn-primary btn-sm">Editar</a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm" >Ver</button>
+                    </td>
+                    <td >
+                        <button type="button" class="btn btn-danger btn-sm" >Eliminar</button>
+                    </td>
+                    
+                    
+                </tr>
+                <tr *ngIf="filaExpandida[i]"style="align-items: center;" >
+                    <td colspan="11" >Fecha de Inicio: {{proyecto.fechaInicio| date }} --- Fecha de Finalización: {{proyecto.fechaFin| date }}</td>
+                </tr>
+              
+             
+    
+            </tbody>
+        </table>
+       
+    </div>
+   
+</div>

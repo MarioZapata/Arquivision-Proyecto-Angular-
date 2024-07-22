@@ -1,0 +1,69 @@
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-light">
+        <h5 class="modal-title w-100" id="confirmationModalLabel">
+          Confirmar Acción
+        </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-dark"><i class="fa-solid fa-x"></i></span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <br>
+        <p>{{ textoMensaje }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmarAccion()"><i class="fa-solid fa-check"></i> Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Código existente para la tabla -->
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <h1>Gestión de Usuarios</h1>
+  </div>
+  <br><br><br>
+  <div class="d-flex justify-content-center">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre de Usuario</th>
+          <th scope="col">Correo Electrónico</th>
+          <th>Rol Actual</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios2; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ usuario.nombre + " " + usuario.apellido_Paterno }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>{{ roles[usuario.idTipoUsuario-1].nombre }}</td>
+          <td>
+            <select [(ngModel)]="usuario.rol" class="form-select form-select-sm">
+              <option *ngFor="let rol of roles" [ngValue]="rol">{{ rol.nombre }}</option>
+            </select>
+          </td>
+          <td>
+            
+            <button 
+            class="btn btn-success btn-sm" 
+            *ngIf="usuario.rol && usuario.rol.idTipoUsuario !== undefined" 
+            (click)="openModal(usuario.idUsuario, usuario.rol.idTipoUsuario, usuario.nombre)">
+            Aceptar
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="openModal(usuario.idUsuario, -1, usuario.nombre)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

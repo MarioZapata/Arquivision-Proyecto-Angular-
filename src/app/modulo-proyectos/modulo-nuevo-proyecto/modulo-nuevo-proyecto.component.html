@@ -1,0 +1,102 @@
+<div class="container">
+  <br>
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <h3>{{ Proyecto ? 'Editar Proyecto' : 'Nuevo Proyecto' }}</h3>
+    </div>
+  </div>
+
+  <form [formGroup]="formularioProyecto" (ngSubmit)="onSubmit()">
+    <!-- Fila 1: Tipo construcción, Encargado -->
+    <div class="row mb-3">
+      <label for="tipoConstruccion" class="col-sm-2 col-form-label">Tipo construcción</label>
+      <div class="col-sm-4">
+        <select id="tipoConstruccion" class="form-select form-select-sm" formControlName="tipoConstruccion">
+          <option *ngFor="let tipo of tiposConstruccion" [value]="tipo.idTipoConstruccion">{{ tipo.nombre }}</option>
+        </select>
+        <div *ngIf="hasErrors('tipoConstruccion', 'required')" class="text-danger">
+          Tipo construcción es requerido.
+        </div>
+      </div>
+      <label for="encargado" class="col-sm-2 col-form-label">Encargado</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control form-control-sm" id="encargado" formControlName="encargado">
+        <div *ngIf="hasErrors('encargado', 'required')" class="text-danger">
+          Encargado es requerido.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Fila 2: Nombre Proyecto -->
+    <div class="row mb-3">
+      <label for="nombreProyecto" class="col-sm-2 col-form-label">Nombre Proyecto</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control form-control-sm" id="nombreProyecto" formControlName="nombreProyecto">
+        <div *ngIf="hasErrors('nombreProyecto', 'required')" class="text-danger">
+          Nombre Proyecto es requerido.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Fila 3: Estado, Municipio, C.P. -->
+    <div class="row mb-3">
+      <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control form-control-sm" id="estado" formControlName="estado">
+        <div *ngIf="hasErrors('estado', 'required')" class="text-danger">
+          Estado es requerido.
+        </div>
+      </div>
+      <label for="municipio" class="col-sm-2 col-form-label">Municipio</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control form-control-sm" id="municipio" formControlName="municipio">
+        <div *ngIf="hasErrors('municipio', 'required')" class="text-danger">
+          Municipio es requerido.
+        </div>
+      </div>
+      <label for="codigoPostal" class="col-sm-2 col-form-label">Código Postal</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control form-control-sm" id="codigoPostal" formControlName="codigoPostal">
+        <div *ngIf="hasErrors('codigoPostal', 'required')" class="text-danger">
+          Código Postal es requerido.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Fila 4: Fecha de Inicio, Fecha de Fin -->
+    <div class="row mb-3">
+      <label for="fechaInicio" class="col-sm-2 col-form-label">Fecha de Inicio</label>
+      <div class="col-sm-4">
+        <input type="date" class="form-control form-control-sm" id="fechaInicio" formControlName="fechaInicio">
+        <div *ngIf="hasErrors('fechaInicio', 'required')" class="text-danger">
+          Fecha de Inicio es requerida.
+        </div>
+      </div>
+      <label for="fechaFin" class="col-sm-2 col-form-label">Fecha de Fin</label>
+      <div class="col-sm-4">
+        <input type="date" class="form-control form-control-sm" id="fechaFin" formControlName="fechaFin">
+        <div *ngIf="hasErrors('fechaFin', 'required')" class="text-danger">
+          Fecha de Fin es requerida.
+        </div>
+      </div>
+    </div>
+  
+    <!-- Botón de Enviar -->
+    <div class="row mb-3">
+      <div class="col-sm-4 offset-sm-2">
+        <button type="submit" class="btn btn-primary">{{ Proyecto ? 'Actualizar Proyecto' : 'Crear Proyecto' }}</button>
+      </div>
+      <div class="col-sm-4">
+        <a [routerLink]="['/proyectos']" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</div>

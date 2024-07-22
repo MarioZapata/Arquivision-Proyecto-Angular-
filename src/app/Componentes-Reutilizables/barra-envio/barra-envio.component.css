@@ -1,0 +1,38 @@
+.progress {
+    height: 30px;
+  }
+  
+  .fa {
+    font-size: 24px;
+  }
+  
+  .text-center p {
+    margin-top: 5px;
+  }
+  
+  .text-center {
+    width: 25%;
+  }
+  
+  .text-success {
+    color: #28a745 !important;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
+  .position-relative {
+    position: relative;
+  }
+  
+  .position-absolute {
+    position: absolute;
+  }
+  
+  .running-icon {
+    top: -35px; /* Ajusta este valor según necesites */
+    transform: translateX(-50%);
+    font-size: 40px; /* Tamaño del icono aumentado */
+    transition: left 0.3s ease-in-out; /* Suaviza el movimiento */
+  }
