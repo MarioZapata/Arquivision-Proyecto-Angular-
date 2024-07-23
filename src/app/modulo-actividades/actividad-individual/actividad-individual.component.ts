@@ -4,9 +4,10 @@ import { CatPrioridadService } from '../../Cat_Services/CatPrioridadService';
 import { OnInit } from '@angular/core';
 import { CatTipoActividadService } from '../../Cat_Services/CatTipoActividadService';
 import { NuevaActividadService } from './nueva-actividad-service';
-import { NuevaActividad } from './nueva-actividad';
+import { ProyectoService } from '../../modulo-proyectos/s-proyecto-servicio';
+import Swal from 'sweetalert2';
 
-
+declare const bootstrap: any;
 @Component({
   selector: 'app-actividad-individual',
   templateUrl: './actividad-individual.component.html',
@@ -14,14 +15,24 @@ import { NuevaActividad } from './nueva-actividad';
 })
 export class ActividadIndividualComponent implements OnInit {
   isCompraMateriales: boolean = false;
+  filaExpandida: boolean[] = [];
   formularioActividadNueva: FormGroup;
   errorMessage: string ="";
   arrayPrioridades: any[] = []
   arrayTipoAct: any[] = []
   usuario: null | string = ""
   idAct: number=1;
+  seEncontro: boolean= false;
+  proyectoElegir: any[] =[]
+  empresa = localStorage.getItem('empresaPertenece');
+  selectedProyectoId: number | null = null;
 
-  constructor(private formBuilder: FormBuilder, private prioridadService: CatPrioridadService, private tiposAct: CatTipoActividadService, private actividadService: NuevaActividadService ){
+  constructor(private formBuilder: FormBuilder, 
+    private prioridadService: CatPrioridadService, 
+    private tiposAct: CatTipoActividadService, 
+    private actividadService: NuevaActividadService,
+    private proyectoService: ProyectoService
+  ){
    
     this.formularioActividadNueva = this.formBuilder.group({
       tipoActividad: ['', Validators.required],
@@ -31,16 +42,102 @@ export class ActividadIndividualComponent implements OnInit {
       prioridad: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
-      //idCompra: [''],
-      //compania: [''],
-      //producto: [''],
-      //total: [''],
-      //fechaEntrega: [''],
-      IdProyecto:['', Validators.required]
+      IdProyecto:['', Validators.required],
+      nombreProyecto:[]
     });
   }
-  crearEnvio(){
+  seleccionarProyecto(id: number): void {
+    this.selectedProyectoId = id;
+  }
+  cancelar(){
+    this.seEncontro=false
+  }
+  confirmarAccion() {
    
+    const modal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
+    modal.hide();
+  }
+  alternarExpansion(numero: number) {
+    console.log(this.filaExpandida[numero])
+    this.filaExpandida[numero] = !this.filaExpandida[numero];
+  }
+  openModal(){
+    const modalElement = document.getElementById('confirmationModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    } else {
+      console.error("No se encontró el elemento del modal.");
+    }
+  }
+  buscarProyecto(){
+   console.log(this.formularioActividadNueva.value.IdProyecto);
+   console.log(this.formularioActividadNueva.value.nombreProyecto);
+   if(this.empresa==null){
+    Swal.fire({
+      icon: 'error',
+      title: 'Error...',
+      text: 'Favor de desloguerase, y volver a entrar',
+      confirmButtonText: 'Cerrar'
+    });
+   }else{
+    if(this.formularioActividadNueva.value.IdProyecto=='' && this.formularioActividadNueva.value.nombreProyecto==null){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error...',
+        text: 'No se eligio ningun paramatero para la busqueda de proyecto',
+        confirmButtonText: 'Cerrar'
+      });
+    }else{
+     if(this.formularioActividadNueva.value.nombreProyecto==null){
+       this.proyectoService.getProyectoByIdorName(this.empresa, this.formularioActividadNueva.value.IdProyecto,"").subscribe(
+        data => {          
+          console.log(data[0].nombre)
+          this.formularioActividadNueva.patchValue({
+            nombreProyecto: data[0].nombre
+          });
+            Swal.fire({
+            icon: 'success',
+            text: '¡Se encontro el proyecto de manera correcta!',
+            confirmButtonText: 'Cerrar'
+          });
+          this.seEncontro=true;
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error...',
+            text: error.error,
+            confirmButtonText: 'Cerrar'
+          });
+        }
+      );
+     }else{
+      this.proyectoService.getProyectoByIdorName(this.empresa, "", this.formularioActividadNueva.value.nombreProyecto).subscribe(
+        data => {
+          
+          if(data.lenght!=1){
+           this.proyectoElegir=data
+           this.openModal();
+          }
+     
+      
+
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error...',
+            text: error.error,
+            confirmButtonText: 'Cerrar'
+          });
+        }
+      );
+     }
+    }
+   }
+ 
+   //console.log(nombre)
   }
   ngOnInit(){
     this.cargarActividades();
@@ -48,6 +145,7 @@ export class ActividadIndividualComponent implements OnInit {
     this.usuario = sessionStorage.getItem('nombreUsuario')
     
   }
+
 
   toggleCompraMateriales() {
     this.isCompraMateriales = !this.isCompraMateriales;

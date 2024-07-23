@@ -1,3 +1,60 @@
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-light" >
+        <h5 class="modal-title w-200" id="confirmationModalLabel" >
+          Confirmar Acción
+        </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="margin-left: auto;">
+          <span aria-hidden="true" class="text-dark"><i class="fa-solid fa-x"></i></span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <br>
+        <p>Elija un proyecto</p>
+      </div>
+      <div>
+        <table class="table table-striped">
+          <thead>
+              <tr> 
+                  <th scope="col">#</th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Municipio</th>
+                  <th scope="col">Elegir</th>
+              </tr>
+          </thead>
+          <tbody *ngFor="let proyecto of proyectoElegir; let i = index">
+          
+              <tr >
+                  <td>
+                      <button class="expand-btn" type="button" (click)="alternarExpansion(i)">
+                          &#8595;
+                      </button>
+                  </td>
+                  <td>{{ proyecto.idProyecto }}</td>
+                  <td>{{ proyecto.nombre }}</td>
+                  <td>{{ proyecto.estado }}</td>
+                  <td>{{ proyecto.municipio }}</td>  
+                  <td>
+                    <input type="radio" name="proyecto" [value]="proyecto.idProyecto" (change)="seleccionarProyecto(proyecto.idProyecto)">
+                  </td>
+              </tr>
+              <tr *ngIf="filaExpandida[i]"style="align-items: center;" >
+                  <td colspan="11" >Fecha de Inicio: {{proyecto.fechaInicio| date }} --- Fecha de Finalización: {{proyecto.fechaFin| date }}</td>
+              </tr>
+          </tbody>
+      </table>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmarAccion()"><i class="fa-solid fa-check"></i> Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <div class="row mb-3">
       <div class="col-sm-4">
@@ -103,17 +160,26 @@
 
       <h3>Proyecto </h3>
       <div class="row mb-3">
-          <label for="fechaEntrega" class="col-sm-2 col-form-label">Id Proyecto</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control form-control-sm" id="Idroyecto" formControlName="IdProyecto">
-          </div>
-          <label for="fechaEntrega" class="col-sm-2 col-form-label">Nombre Proyecto</label>
-          <div class="col-sm-4">
-              <input type="text" class="form-control form-control-sm" id="compania">
-          </div>
+        <label for="IdProyecto" class="col-sm-2 col-form-label">Id Proyecto</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" id="IdProyecto" formControlName="IdProyecto"
+            [class.read-only]="seEncontro"
+            [attr.readOnly]="seEncontro ? true : null">
+        </div>
+        <label for="nombreProyecto" class="col-sm-2 col-form-label">Nombre Proyecto</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control form-control-sm" id="nombreProyecto" formControlName="nombreProyecto"
+            [class.read-only]="seEncontro"
+            [attr.readOnly]="seEncontro ? true : null">
+        </div>
       </div>
-      <div class="row mb-3">
-          <button type="submit" class="btn btn-primary" style="width: 15rem;">Buscar</button>
+      
+      <div class="row mb-3" *ngIf="!seEncontro">
+        <button type="button" class="btn btn-primary" style="width: 15rem;" (click)="buscarProyecto()">Buscar</button>
+      </div>
+      
+      <div class="row mb-3" *ngIf="seEncontro">
+        <button type="button" class="btn btn-secondary" style="width: 15rem;" (click)="cancelar()">Cancelar</button>
       </div>
 
       <!-- Botones de acción -->

@@ -45,6 +45,18 @@ export class ProyectoService {
         catchError(this.handleError)
     );
   }
+  public getProyectoByIdorName(empresa: string, id: string, nombre: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    console.log(id)
+    console.log(nombre)
+    const params = new HttpParams().set('Empresa', empresa)
+    .set('Id', id)
+    .set('Nombre',nombre);
+    const apiUrl = `${this.apiUrl}/getProyectoByIdName`;
+    return this.http.get<any>(apiUrl, { headers, params }).pipe(
+        catchError(this.handleError)
+    );
+  }
   // Manejo de errores
   private handleError(error: any): Observable<any> {
     //console.error('Error en la solicitud:');
@@ -56,6 +68,6 @@ export class ProyectoService {
     });
     return throwError('Error en la solicitud. Por favor, inténtalo de nuevo.'); // Devuelve un observable de error
   }
-   
+  
 
 }
