@@ -1,28 +1,50 @@
 <div class="container">
     <div class="d-flex justify-content-center">
         <h1>Pedido</h1>
-        <h3>Carrito</h3>
-    <i class="fa-solid fa-cart-shopping"></i>
     </div>
-    
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre del Material</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Costo Individual</th>
-                <th scope="col">Total</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-    </table>
+    <div style="text-align: center;">
+        <h3>Carrito</h3>
+        <h3><i class="fa-solid fa-cart-shopping"></i></h3>
+    </div>
+    <div style="width: 60%; margin-left: 20%;">
+        <div style="max-height: 150px; overflow-y: auto; font-size: 0.9rem;">
+            <table class="table table-striped table-sm" >
+                <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                    <tr>
+                        <th scope="col" >#</th>
+                        <th scope="col" >Nombre del Material</th>
+                        <th scope="col" >Cantidad</th>
+                        <th scope="col" >Costo Individual</th>
+                        <th scope="col" >Total</th>
+                        <th scope="col" >Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let car of Carrito | orderBy: 'idProducto'">
+                        <td>{{ car.idProducto }}</td>
+                        <td>{{ car.nombre }}</td>
+                        <td>{{ car.cantidad }}</td>
+                        <td>{{ car.costoIndividual }}</td>
+                        <td>{{ car.total }}</td>
+                        <td class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-sm btn-success mx-1" (click)="cambiarCantidad(car.idCarrito, car.cantidad, 1)" ><i class="fa-solid fa-square-plus"></i></button>
+                            <button type="button" class="btn btn-sm btn-warning mx-1" (click)="cambiarCantidad(car.idCarrito, car.cantidad, -1)"><i class="fa-solid fa-square-minus"></i></button>
+                            <button type="button" class="btn btn-sm btn-danger mx-1" (click)="cambiarCantidad(car.idCarrito, car.cantidad, 0)"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div class="col-sm-4">
+    
+
+
+<!-- <div class="col-sm-4">
     <select id="tipoConstruccion" class="form-select form-select-sm" >
       <option *ngFor="let car of Productos" >{{ car.idProducto }}</option>
     </select>
-</div>
+</div> -->
 
 <div class="container">
 
@@ -41,14 +63,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let material of paginatedProductos;let i = index;">
+                <tr *ngFor="let material of paginatedProductos | orderBy: 'idProducto';let i = index;">
                     <td>{{ material.idProducto }}</td>
                     <td>{{ material.nombreMaterial }}</td>
                     <td>{{ 1 }}</td>
                     <td>{{ material.costo | currency }}</td>
                     <td>{{ material.costo | currency }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" (click)="agregarMaterial(material.id_Producto, material.costo, material.nombreMaterial  )">Agregar</button> 
+                        <button type="button" class="btn btn-primary btn-sm" (click)="agregarMaterial(material.idProducto, material.costo, material.nombreMaterial  )">Agregar</button> 
                     </td>
                 </tr>
             </tbody>

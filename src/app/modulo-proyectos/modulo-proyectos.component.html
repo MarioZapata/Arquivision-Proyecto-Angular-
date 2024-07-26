@@ -123,7 +123,7 @@
                     <th scope="col">Eliminar</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let proyecto of proyectos; let i = index">
+            <tbody *ngFor="let proyecto of proyectos | orderBy: 'idProyecto'; let i = index">
             
                 <tr >
                     <td>

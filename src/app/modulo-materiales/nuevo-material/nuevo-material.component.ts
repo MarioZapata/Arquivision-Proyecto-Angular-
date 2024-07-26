@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../modulo-materiales/productos-service';
-import { AgregarCarritoService } from '../../modulo-materiales/agregar-carrito';
-import { CarritoGetService } from '../../modulo-materiales/carrito-get-service';
 import { min } from 'rxjs';
+import { CarritoService } from '../carrito-service';
 
 @Component({
   selector: 'app-nuevo-material',
@@ -18,47 +17,68 @@ export class NuevoMaterialComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
   pages: number[] = [];
-
-
-  constructor(private producto_service: ProductosService, private carritoget_service: CarritoGetService, private carritoAgregar_service: AgregarCarritoService) {}
+  idUsuario = localStorage.getItem("IdUsuario")
+  nombreUsuario = localStorage.getItem("nombreUsuario")
+  constructor(private producto_service: ProductosService,  private _carritoService: CarritoService) {}
 
   ngOnInit(): void {
-    console.log(Number(sessionStorage.getItem("IdUsuario")))
-    this.cargarCarrito(Number(sessionStorage.getItem("IdUsuario")));
+    console.log(Number(this.idUsuario))
+    this.cargarCarrito(Number(this.idUsuario));
     this.cargarProductos();
    
   }
-
+  
   cargarCarrito(IdUsuario: number) {
-    this.carritoget_service.obtenerCarrito(IdUsuario)
+    this._carritoService.obtenerCarrito(IdUsuario)
       .subscribe(
         data => {
-          this.Carrito = data;
-          
+          this.Carrito = data;          
+        },
+        error => {
+          //console.error(error);
+        }
+      );
+  }
+  enCarrito(idProducto: number): boolean {
+    return this.Carrito.some(producto => producto.idProducto === idProducto);
+  }
+  cargarProductos() {
+    this.producto_service.obtenerTiposConstruccion(Number(sessionStorage.getItem("IdUsuario"))).subscribe(
+      data => {
+
+        this.Productos = data.filter(producto => !this.enCarrito(producto.idProducto));
+        //console.log(this.Productos)    
+     
+        this.calculatePages();
+        this.updatePaginatedProductos();
+
+        
+      },
+      error => {
+        //console.error(error);
+      }
+    );
+  }
+  cambiarCantidad(id:number, cantidad:number, numero: number){
+    if(numero==0){
+
+    }else{
+      cantidad=cantidad+numero
+      console.log("cantidad="+cantidad)
+      console.log("numero="+numero)
+
+      this._carritoService.updateCarrito(id,cantidad).subscribe(
+        data => {
+          location.reload()
+          console.log(data)
         },
         error => {
           console.error(error);
         }
       );
-  }
+    }
 
-  cargarProductos() {
-    this.producto_service.obtenerTiposConstruccion(Number(sessionStorage.getItem("IdUsuario"))).subscribe(
-      data => {
-        this.Productos = data;
-        console.log(this.Productos)
-        console.log(this.Carrito)
-     
-        this.calculatePages();
-        this.updatePaginatedProductos();
-        
-      },
-      error => {
-        console.error(error);
-      }
-    );
   }
-
   calculatePages() {
     const totalItems = this.Productos.length;
     const totalPages = Math.ceil(totalItems / this.itemsPerPage);
@@ -78,23 +98,23 @@ export class NuevoMaterialComponent implements OnInit {
       this.updatePaginatedProductos();
     }
   }
-  agregarMaterial(i: number, costo: number, nom: string){
+  agregarMaterial(id: number, costo: number, nom: string){
    
    const Carro={
     eliminado: false,
-    idProducto: i,
+    idProducto: id,
     nombre:nom ,
     cantidad: 1,
     costoIndividual: costo,
     total: costo,
-    usuarioCreo: sessionStorage.getItem("nombreUsuario"),
-    idUsuario: Number(sessionStorage.getItem("IdUsuario"))
+    usuarioCreo: this.nombreUsuario,
+    idUsuario: Number(this.idUsuario)
   
    };
    console.log(Carro)
-   this.carritoAgregar_service.agregarAlCarrito(Carro).subscribe(
+   this._carritoService.agregarAlCarrito(Carro).subscribe(
     response => {
-      console.log('Carenviado exitosamente:', response);
+      location.reload()
       // Puedes agregar aquí lógica adicional como mostrar un mensaje de éxito
     },
     error => {

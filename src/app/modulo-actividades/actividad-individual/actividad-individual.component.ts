@@ -53,9 +53,21 @@ export class ActividadIndividualComponent implements OnInit {
     this.seEncontro=false
   }
   confirmarAccion() {
-   
-    const modal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
-    modal.hide();
+    if(this.selectedProyectoId==null){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error...',
+        text: 'No se eligio ningun proyecto',
+        confirmButtonText: 'Cerrar'
+      });
+    }else{
+      this.formularioActividadNueva.patchValue({
+        IdProyecto: this.selectedProyectoId
+      });
+     this.seEncontro=true
+      const modal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
+      modal.hide();
+    }
   }
   alternarExpansion(numero: number) {
     console.log(this.filaExpandida[numero])

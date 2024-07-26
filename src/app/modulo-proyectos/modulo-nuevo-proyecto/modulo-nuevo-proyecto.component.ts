@@ -98,7 +98,7 @@ export class ModuloNuevoProyectoComponent implements OnInit {
   
     const proyecto = {
       // Incluye el id solo si es una actualización
-      ...(this.Proyecto ? { id: this.Proyecto.idProyecto } : {}),
+      ...(this.Proyecto ? { idProyecto: this.Proyecto.idProyecto } : {}),
       eliminado: false,
       id_TipoConstruccion: this.formularioProyecto.value.tipoConstruccion,
       encargado: this.formularioProyecto.value.encargado,
@@ -127,6 +127,7 @@ export class ModuloNuevoProyectoComponent implements OnInit {
       this.proyectoService.actulizarProyecto(proyecto).subscribe(
         
         response => {
+          console.log(response)
           Swal.fire({
             icon: 'success',
             text: 'Proyecto actualizado exitosamente!',

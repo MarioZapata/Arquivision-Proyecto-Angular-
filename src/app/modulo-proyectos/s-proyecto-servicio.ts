@@ -22,6 +22,7 @@ export class ProyectoService {
       );
   }
   public actulizarProyecto(proyecto: any){
+    console.log(proyecto)
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     let apiUrl=this.apiUrl+"/actulizarProyecto"
     return this.http.patch<any>(apiUrl, proyecto, { headers }).pipe(

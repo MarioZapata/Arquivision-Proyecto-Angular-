@@ -10,10 +10,12 @@ export class ProductosService {
   private apiUrl = 'https://localhost:7128/api/Producto/obtener/'; // Ajusta la URL según tu configuración
 
   constructor(private http: HttpClient) { }
+  private token = localStorage.getItem('token');
 
   obtenerTiposConstruccion(IdUsuario: number): Observable<any[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     this.apiUrl=this.apiUrl+IdUsuario
-    return this.http.get<any[]>(this.apiUrl)
+    return this.http.get<any[]>(this.apiUrl,{headers})
       .pipe(
         catchError(this.handleError)
       );
