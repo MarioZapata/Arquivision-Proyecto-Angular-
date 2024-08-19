@@ -108,48 +108,65 @@
     <div class="d-flex justify-content-center">
         <table class="table table-striped">
             <thead>
-                <tr> 
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre del Pedido</th>
-                   
                     <th scope="col">Total</th>
-                    <th scope="col">Empresa Proveedor</th>
-                    <th scope="col">Estatus</th>
                     <th scope="col">Fecha de Pedido</th>
-             
-                    <th scope="col">Editar</th>
+                    <th scope="col">Num. Ticket</th>
+                   
                     <th scope="col">Ver</th>
                     <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let pedido of paginatedPedidos">
                     <!-- Celda del botón de expansión -->
-                    <td><button class="expand-btn" type="button" (click)="alternarExpansion()">&#8595;</button></td>
+                    <td>
+                       
+                    </td>
                     <!-- Datos de la fila -->
-                    <td>1</td>
-                    <td>Material A</td>
-                    <td>10</td>
-                    <td>15.50</td>
-                    <td>172.00</td>
-                    <td>Proveedor X</td>
-                    <td>En Almacén</td>
-                    <td>2023-01-15</td>
-                  
-                    <!-- Botones de acción -->
-                    <td>   <a [routerLink]="['/editar-material']" class="btn btn-primary btn-sm">Editar</a>   </td>
-                    <td>    <a [routerLink]="['/rastreo-materiales']" class="btn btn-primary btn-sm">Ver</a>      </td>
-                    <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
-                </tr>
-                <!-- Fila expandida -->
-                <tr *ngIf="filaExpandida">
-                    <!-- Celda con la información adicional -->
-                    <td colspan="15" style="align-items: center;" value="1">Información adicional sobre Material A...</td>
+                    <td>{{ pedido.idPedido }}</td>
+                    <td>{{ pedido.nombreDelPedido }}</td>
+                    <td>{{ pedido.total }}</td>
+                    <td>{{ pedido.fechaCreacion | date }}</td>
+                    <td>{{ pedido.num_Ticket }}</td>
+               
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm d-flex align-items-center justify-content-center" (click)="verPedido(pedido.idPedido)">
+                            <i class="fa-solid fa-eye me-2"></i> Ver
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center" (click)="eliminarPedido(pedido.idPedido)">
+                            <i class="fa-solid fa-trash me-2"></i> Eliminar
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
+    
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link" href="#" aria-label="Previous" (click)="changePage($event, currentPage - 1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+                    <a class="page-link" href="#" (click)="changePage($event, page)">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === pages.length">
+                    <a class="page-link" href="#" aria-label="Next" (click)="changePage($event, currentPage + 1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
 
 </div>

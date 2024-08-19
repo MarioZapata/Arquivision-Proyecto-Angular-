@@ -58,6 +58,23 @@ export class ProyectoService {
         catchError(this.handleError)
     );
   }
+  public eliminarProyecto(id: number) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    let apiUrl = this.apiUrl + "/deleteProyecto";
+    const body = { id: id }; // Enviar ID en el cuerpo
+    console.log(id);
+    return this.http.patch<any>(apiUrl, id, { headers }).pipe(
+        catchError(this.handleError)
+    );
+  }
+  public cambiarStatus(objetoCambio:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    let apiUrl = this.apiUrl + "/changeStatus";
+    return this.http.patch<any>(apiUrl, objetoCambio, { headers }).pipe(
+        catchError(this.handleError)
+    );
+
+  }
   // Manejo de errores
   private handleError(error: any): Observable<any> {
     //console.error('Error en la solicitud:');

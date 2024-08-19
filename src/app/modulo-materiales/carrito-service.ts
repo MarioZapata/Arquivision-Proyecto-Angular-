@@ -21,7 +21,8 @@ export class CarritoService {
 
   obtenerCarrito(IdUsuario: number): Observable<any[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-    let baseUrl=this.baseUrl+"/obtener/"+IdUsuario
+    let baseUrl=`${this.baseUrl}/obtener/`+IdUsuario
+    console.log(baseUrl)
     return this.http.get<any[]>(baseUrl, { headers })
       .pipe(
         catchError(this.handleError)

@@ -27,6 +27,7 @@ import { ConfirmacionCorreoComponent } from './modulo-inical/confirmacion-correo
 import { NuevoMaterialComponent } from './modulo-materiales/nuevo-material/nuevo-material.component';
 import { ModuloProyectoVerComponent } from './modulo-proyectos/modulo-proyecto-ver/modulo-proyecto-ver.component';
 import { OrderByPipe } from './order-by.pipe';
+import { VerPedidoComponent } from './modulo-materiales/ver-pedido/ver-pedido.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { OrderByPipe } from './order-by.pipe';
     ConfirmacionCorreoComponent,
     ModuloProyectoVerComponent,
     OrderByPipe,
+    VerPedidoComponent,
   ],
   imports: [
     BrowserModule,

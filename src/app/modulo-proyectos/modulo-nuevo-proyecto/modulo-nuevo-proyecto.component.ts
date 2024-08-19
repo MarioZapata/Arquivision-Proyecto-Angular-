@@ -45,16 +45,15 @@ export class ModuloNuevoProyectoComponent implements OnInit {
     this.cargarTiposConstruccion();
     this.nombreEmpresa = localStorage.getItem('empresaPertenece');
     this.nombreUser = localStorage.getItem('nombreUsuario');
-    
+  
     this.route.params.subscribe(params => {
       const id = params['id'];
-      const navigation = this.router.getCurrentNavigation();
       this.Proyecto = this.proyectoShared.getProyecto();
       if (this.Proyecto) {
         this.cargarProyecto(this.Proyecto);
         console.log(this.Proyecto)
       } else {
-        //this.cargarProyectoDesdeServicio(proyectoId);
+        
       }
     });
   }
@@ -120,7 +119,9 @@ export class ModuloNuevoProyectoComponent implements OnInit {
       } : { usuarioCreo: this.nombreUser, })
      
     };
-
+    console.log(proyecto);
+    console.log(this.Proyecto)
+    console.log(proyecto.fechaFin)
     if (this.Proyecto) {
       console.log(proyecto);
       proyecto

@@ -1,0 +1,8 @@
+.btn {
+    padding: 0.5rem 1rem; /* Ajusta el padding para hacer el botón más pequeño */
+    font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+  }
+  
+  .btn i {
+    font-size: 1.25rem; /* Ajusta el tamaño del ícono dentro del botón */
+  }

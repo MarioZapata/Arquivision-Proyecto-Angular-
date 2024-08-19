@@ -12,6 +12,7 @@ import { ModuloUsuariosComponent } from './modulo-usuarios/modulo-usuarios.compo
 import { AuthGuard } from './Componentes-Reutilizables/AuthGuard';
 import { NuevoMaterialComponent } from './modulo-materiales/nuevo-material/nuevo-material.component';
 import { ConfirmacionCorreoComponent } from './modulo-inical/confirmacion-correo/confirmacion-correo.component';
+import { VerPedidoComponent } from './modulo-materiales/ver-pedido/ver-pedido.component';
 
 const routes: Routes = [
 
@@ -27,6 +28,7 @@ const routes: Routes = [
  // {path: "inicio", component: ModuloInicalComponent},
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'confirm', component: ConfirmacionCorreoComponent }, // Nueva ruta
+  {path: 'ver-pedido/:id', component: VerPedidoComponent, canActivate: [AuthGuard]}
 
   // { path: '**', redirectTo: '/inicio'}
 ];

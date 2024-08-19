@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CatTipoUsuariosService {
+export class CatEstadoProyecto {
   private apiUrl = 'https://localhost:7128/api/CatEstadoProyecto'; // Ajusta la URL según tu configuración
 
   constructor(private http: HttpClient) { }

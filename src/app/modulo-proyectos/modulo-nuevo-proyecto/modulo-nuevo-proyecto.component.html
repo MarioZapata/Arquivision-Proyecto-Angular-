@@ -92,11 +92,15 @@
     <!-- Botón de Enviar -->
     <div class="row mb-3">
       <div class="col-sm-4 offset-sm-2">
-        <button type="submit" class="btn btn-primary">{{ Proyecto ? 'Actualizar Proyecto' : 'Crear Proyecto' }}</button>
-      </div>
-      <div class="col-sm-4">
-        <a [routerLink]="['/proyectos']" class="btn btn-secondary">Cancelar</a>
-      </div>
+        <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center" style="width: 20rem;">
+            <i class="fa-solid fa-save me-2"></i> {{ Proyecto ? 'Actualizar Proyecto' : 'Crear Proyecto' }}
+        </button>
+    </div>
+    <div class="col-sm-4">
+        <a [routerLink]="['/proyectos']" class="btn btn-secondary d-flex align-items-center justify-content-center" style="width: 20rem;">
+            <i class="fa-solid fa-times me-2"></i> Cancelar
+        </a>
+    </div>
     </div>
   </form>
 </div>

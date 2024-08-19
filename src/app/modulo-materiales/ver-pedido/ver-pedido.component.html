@@ -1,0 +1,47 @@
+
+<div class="container">
+    <h3>{{txtTitulo}}</h3>
+    <br><br><br>
+    <div class="d-flex justify-content-center">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id Material</th>
+                    <th scope="col">Nombre del Material</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Costo Individual</th>
+                    <th scope="col">Total</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let material of paginatedProductos | orderBy: 'idProducto';let i = index;">
+                    <td>{{ material.idProductoVenta }}</td>
+                    <td>{{ material.nombreMaterial }}</td>
+                    <td>{{ material.cantidad }}</td>
+                    <td>{{ material.costoIndividual | currency }}</td>
+                    <td>{{ material.total | currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link" href="#" aria-label="Previous" (click)="changePage($event, currentPage - 1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+                    <a class="page-link" href="#" (click)="changePage($event, page)">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === pages.length">
+                    <a class="page-link" href="#" aria-label="Next" (click)="changePage($event, currentPage + 1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

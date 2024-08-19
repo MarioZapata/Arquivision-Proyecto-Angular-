@@ -1,3 +1,105 @@
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-light">
+                <h5 class="modal-title w-100" id="confirmationModalLabel">
+                    Confirmar Acción
+                </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-dark"><i class="fa-solid fa-x"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="miFormulario">
+                    <div class="mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombrePedido" class="col-form-label">Nombre del Pedido</label>
+                            <input type="text" class="form-control form-control-sm" id="nombrePedido" formControlName="nombrePedido">
+
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" id="envio1" formControlName="metodoEnvio" value="10" (change)="onRadioChange($event)">
+                              <label class="form-check-label" for="envio1">Envío Estándar</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" id="envio2" formControlName="metodoEnvio" value="15" (change)="onRadioChange($event)">
+                              <label class="form-check-label" for="envio2">Envío Exprés</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" id="envio3" formControlName="metodoEnvio" value="30" (change)="onRadioChange($event)">
+                              <label class="form-check-label" for="envio3">Envío Internacional</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" id="envio4" formControlName="metodoEnvio" value="17" (change)="onRadioChange($event)">
+                              <label class="form-check-label" for="envio4">Envío al Día Siguiente</label>
+                            </div>
+                          </div>
+                          
+                        
+                    </div>
+                  
+                    <label class="col-form-label">Método de Compra</label>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="compra1" formControlName="metodoCompra" value="Tarjeta de Débito">
+                                <label class="form-check-label" for="compra1">Tarjeta de Débito</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="compra2" formControlName="metodoCompra" value="PayPal">
+                                <label class="form-check-label" for="compra2">PayPal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="compra3" formControlName="metodoCompra" value="Efectivo">
+                                <label class="form-check-label" for="compra3">Efectivo</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="compra4" formControlName="metodoCompra" value="Otro">
+                                <label class="form-check-label" for="compra4">Otro</label>
+                            </div>
+                         
+                        </div>
+                        <div *ngIf="miFormulario.get('metodoCompra')?.invalid && (miFormulario.get('metodoCompra')?.dirty || miFormulario.get('metodoCompra')?.touched)">
+                            <small class="text-danger" *ngIf="miFormulario.get('metodoCompra')?.errors?.['required']">Método de compra es requerido.</small>
+                        </div>
+                    <div class="mb-3">
+                      <label for="numTicket" class="col-form-label">Número de Ticket</label>
+                      <input type="text" class="form-control" id="numTicket" formControlName="numTicket" 
+                        [ngClass]="{'is-invalid': miFormulario.get('numTicket')?.invalid && (miFormulario.get('numTicket')?.dirty || miFormulario.get('numTicket')?.touched)}">
+                      <div *ngIf="miFormulario.get('numTicket')?.invalid && (miFormulario.get('numTicket')?.dirty || miFormulario.get('numTicket')?.touched)">
+                        <small class="text-danger" *ngIf="miFormulario.get('numTicket')?.errors?.['required']">Número de ticket es requerido.</small>
+                      </div>
+                    </div>
+                  
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                          <label for="subtotal" class="col-form-label">SubTotal</label>
+                          <input type="number" class="form-control bg-light text-muted" id="subtotal" name="subtotal" step="0.01" [value]="subtotal" readonly>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="costoEnvio" class="col-form-label">Costo de Envío</label>
+                          <input type="number" class="form-control bg-light text-muted" id="costoEnvio" name="costoEnvio" step="0.01" [value]="costoEn" readonly>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="total" class="col-form-label">Total</label>
+                          <input type="number" class="form-control bg-light text-muted" id="total" name="total" step="0.01" [value]="total" readonly>
+                        </div>
+                      </div>
+                  </form>
+                  
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="confirmarAccion()"><i class="fa-solid fa-check"></i> Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <div class="container">
     <div class="d-flex justify-content-center">
         <h1>Pedido</h1>
@@ -8,6 +110,7 @@
     </div>
     <div style="width: 60%; margin-left: 20%;">
         <div style="max-height: 150px; overflow-y: auto; font-size: 0.9rem;">
+      
             <table class="table table-striped table-sm" >
                 <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
                     <tr>
@@ -35,6 +138,19 @@
                 </tbody>
             </table>
         </div>
+        
+        <div class="d-flex justify-content-center" style="margin-top: 10px;">
+            <div class="row gy-2 gx-3 align-items-center">
+                <div class="col-auto" style="margin-right: 2rem;">
+                    <button type="submit" class="btn btn-primary btn-sm" style="width: 15rem;" (click)="openModal()">Comprar</button>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-secondary btn-sm" style="width: 15rem;" (click)="limpiar()">Limpiar</button>
+                </div>
+            </div>
+        </div>
+        
+
     </div>
 </div>
     

@@ -11,7 +11,7 @@
       </div>
       <div class="modal-body text-center">
         <br>
-        <p>Elija un proyecto</p>
+        <h3>Elija un proyecto</h3>
       </div>
       <div>
         <table class="table table-striped">
@@ -55,25 +55,88 @@
   </div>
 </div>
 
+<div class="modal fade" id="confirmationModal2" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-light" >
+        <h5 class="modal-title w-200" id="confirmationModalLabel" >
+          Confirmar Acción
+        </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="margin-left: auto;">
+          <span aria-hidden="true" class="text-dark"><i class="fa-solid fa-x"></i></span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <br>
+        <p>Elija un proyecto</p>
+      </div>
+      <div>
+        <table class="table table-striped">
+          <thead>
+              <tr> 
+                  <th scope="col">#</th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Num. Ticket</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Elegir</th>
+              </tr>
+          </thead>
+          <tbody *ngFor="let pedido of Pedidos; let i = index">
+          
+              <tr >
+                  <td>
+                      <button class="expand-btn" type="button" (click)="alternarExpansion(i)">
+                          &#8595;
+                      </button>
+                  </td>
+                  <td>{{ pedido.idPedido }}</td>
+                  <td>{{ pedido.nombreDelPedido }}</td>
+                  <td>{{ pedido.num_Ticket }}</td>
+                  <td>{{ pedido.total }}</td>  
+                  <td>
+                    <input type="radio" name="proyecto" [value]="pedido.idPedido" (change)="seleccionarPedido(pedido.idPedido)">
+                  </td>
+              </tr>
+              <tr *ngIf="filaExpandida[i]"style="align-items: center;" >
+                <td colspan="11" >Fecha de pedido: {{pedido.fechaCreacion| date }}</td>
+            </tr>
+          </tbody>
+      </table>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i> Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmarAccion2()"><i class="fa-solid fa-check"></i> Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <div class="row mb-3">
       <div class="col-sm-4">
         <br>
-        <h1>Actividad #</h1>
+        <h1>{{textoTipo}}</h1>
       </div>
     </div>
-    <h3>Actividad </h3>
+    
     <form [formGroup]="formularioActividadNueva" (ngSubmit)="onSubmit()">
       <!-- Fila 1: Tipo actividad, Encargado -->
       <div class="row mb-3">
         <label for="tipoActividad" class="col-sm-2 col-form-label">Tipo actividad</label>
         <div class="col-sm-4">
-          <select id="tipoActividad" class="form-select form-select-sm" formControlName="tipoActividad">
-            <option *ngFor="let iactividad of arrayTipoAct let i = index" [value]="i+1">
+          <select id="tipoActividad" class="form-select form-select-sm" formControlName="tipoActividad"
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null"
+          >
+            <option *ngFor="let iactividad of arrayTipoAct let i = index" [value]="i+1" 
+            [attr.disabled]="soloVista ? true : null">
               {{iactividad.nombre}}
             </option>
-    
-          </select>
+          </select >
+          <div *ngIf="hasErrors('tipoActividad', 'required')" class="text-danger">
+            Tipo actividad es requerido.
+          </div>
         </div>
       </div>
   
@@ -81,11 +144,22 @@
       <div class="row mb-3">
         <label for="nombreActividad" class="col-sm-2 col-form-label">Nombre</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control form-control-sm" id="nombreActividad" formControlName="nombreActividad">
+          <input type="text" class="form-control form-control-sm" id="nombreActividad" formControlName="nombreActividad" 
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null">
+          <div *ngIf="hasErrors('nombreActividad', 'required')" class="text-danger">
+            Nombre es requerido.
+          </div>
         </div>
         <label for="encargado" class="col-sm-2 col-form-label">Encargado</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control form-control-sm" id="encargado" formControlName="encargado">
+          <input type="text" class="form-control form-control-sm" id="encargado" formControlName="encargado"
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null"
+          >
+          <div *ngIf="hasErrors('encargado', 'required')" class="text-danger">
+            Encargado es requerido.
+          </div>
         </div>
       </div>
   
@@ -93,15 +167,29 @@
       <div class="row mb-3">
         <label for="asignado" class="col-sm-2 col-form-label">Asignado</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control form-control-sm" id="asignado" formControlName="asignado">
+          <input type="text" class="form-control form-control-sm" id="asignado" formControlName="asignado"
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null"
+          >
+          <div *ngIf="hasErrors('asignado', 'required')" class="text-danger">
+            Asignado es requerido.
+          </div>
         </div>
         <label for="prioridad" class="col-sm-2 col-form-label">Prioridad</label>
         <div class="col-sm-4">
-          <select id="prioridad" class="form-select form-select-sm" formControlName="prioridad">
-            <option *ngFor="let iprioridad of arrayPrioridades; let i = index" [value]="i+1">
+          <select id="prioridad" class="form-select form-select-sm" formControlName="prioridad"
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null"
+          >
+            <option *ngFor="let iprioridad of arrayPrioridades; let i = index" [value]="i+1"
+            [attr.disabled]="soloVista ? true : null"
+            >
               {{iprioridad.nombre}}
             </option>
           </select>
+          <div *ngIf="hasErrors('prioridad', 'required')" class="text-danger">
+            Prioridad es requerida.
+          </div>
         </div>
       </div>
   
@@ -109,18 +197,28 @@
       <div class="row mb-3">
         <label for="fechaInicio" class="col-sm-2 col-form-label">Fecha inicio</label>
         <div class="col-sm-4">
-          <input type="date" class="form-control form-control-sm" id="fechaInicio" formControlName="fechaInicio">
+          <input type="date" class="form-control form-control-sm" id="fechaInicio" formControlName="fechaInicio"
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null">
+          <div *ngIf="hasErrors('fechaInicio', 'required')" class="text-danger">
+            Fecha inicio es requerida.
+          </div>
         </div>
         <label for="fechaFin" class="col-sm-2 col-form-label">Fecha fin</label>
         <div class="col-sm-4">
-          <input type="date" class="form-control form-control-sm" id="fechaFin" formControlName="fechaFin">
+          <input type="date" class="form-control form-control-sm" id="fechaFin" formControlName="fechaFin"
+          [class.read-only]="soloVista"
+          [attr.readOnly]="soloVista ? true : null">
+          <div *ngIf="hasErrors('fechaFin', 'required')" class="text-danger">
+            Fecha fin es requerida.
+          </div>
         </div>
       </div>
   
       <!-- Checkbox -->
       <div class="row mb-3">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="compraMateriales" (change)="toggleCompraMateriales()">
+          <input class="form-check-input" type="checkbox" id="compraMateriales" (change)="toggleCompraMateriales()"   formControlName="compraMateriales" >
           <label class="form-check-label" for="compraMateriales">
             ¿Es compra de materiales?
           </label>
@@ -129,33 +227,33 @@
   
       <!-- Campos adicionales para compra de materiales -->
       <div *ngIf="isCompraMateriales">
+        <div class="row mb-3" *ngIf="!seEncontroCompra">
+          <button type="button" class="btn btn-primary" style="width: 15rem;height: 2rem;" (click)="buscarCompra()">Buscar</button>
+        </div>
+        
+        <div class="row mb-3" *ngIf="seEncontroCompra">
+          <button type="button" class="btn btn-secondary" style="width: 15rem;height: 2rem;" (click)="cancelar2()">Cancelar</button>
+        </div>
         <div class="row mb-3">
           <label for="idCompra" class="col-sm-2 col-form-label">ID Compra</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" id="idCompra" formControlName="idCompra">
+            <input type="text" class="form-control form-control-sm" id="idCompra" formControlName="idCompra" 
+            [class.read-only]="seEncontroCompra"
+            [attr.readOnly]="seEncontroCompra ? true : null">
           </div>
-          <label for="compania" class="col-sm-2 col-form-label">Compañia</label>
+          <label for="compania" class="col-sm-2 col-form-label">Nombre compra</label>
+  
           <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" id="compania" formControlName="compania">
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="producto" class="col-sm-2 col-form-label">Producto</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" id="producto" formControlName="producto">
-          </div>
-          <label for="total" class="col-sm-2 col-form-label">Total</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control form-control-sm" id="total" formControlName="total">
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="fechaEntrega" class="col-sm-2 col-form-label">Fecha de entrega</label>
-          <div class="col-sm-4">
-            <input type="date" class="form-control form-control-sm" id="fechaEntrega" formControlName="fechaEntrega">
+            <input type="text" class="form-control form-control-sm" id="nombreCompra" formControlName="nombreCompra"
+            [class.read-only]="seEncontroCompra"
+            [attr.readOnly]="seEncontroCompra ? true : null"
+            >
           </div>
         </div>
       </div>
+  
+
+  
       <!-- Proyecto -->
 
       <h3>Proyecto </h3>
@@ -175,11 +273,11 @@
       </div>
       
       <div class="row mb-3" *ngIf="!seEncontro">
-        <button type="button" class="btn btn-primary" style="width: 15rem;" (click)="buscarProyecto()">Buscar</button>
+        <button type="button" class="btn btn-primary" style="width: 15rem;height: 2rem;" (click)="buscarProyecto()">Buscar</button>
       </div>
       
       <div class="row mb-3" *ngIf="seEncontro">
-        <button type="button" class="btn btn-secondary" style="width: 15rem;" (click)="cancelar()">Cancelar</button>
+        <button type="button" class="btn btn-secondary" style="width: 15rem;height: 2rem;" (click)="cancelar()">Cancelar</button>
       </div>
 
       <!-- Botones de acción -->

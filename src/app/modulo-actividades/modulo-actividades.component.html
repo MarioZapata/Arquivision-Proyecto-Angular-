@@ -1,158 +1,132 @@
-
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <h1>Actividades</h1>
+    <br *ngIf="errorMessage">
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                {{ errorMessage }}
+            </div>
+        </div>
+    </div>
+    <br *ngIf="errorMessage">
+    <div class="d-flex align-items-center mb-2" style="margin-left: 30%;">
+        <h1 class="mb-0 me-3">Actividades</h1>
+        <div class="d-grid gap-2">
+            <button (click)="crearNuevaActividad()" class="btn btn-success btn-lg d-flex align-items-center justify-content-center" style="width: 15.5rem; height: 2rem;">
+                <i class="fa-solid fa-plus me-2"></i> Nuevo
+            </button>
+        </div>
     </div>
     <div class="d-flex justify-content-center">
-        <form>
-            <!-- Fila 1: Tipo construcción, botón Nuevo -->
+        <form (ngSubmit)="onSubmit()">
+            <!-- Fila 1: Tipo actividad, Encargado -->
             <div class="row gy-2 gx-3 align-items-center">
                 <div class="col-auto">
-                    <label for="tipoConstruccion" class="col-form-label small">Tipo actividad</label>
+                    <label for="tipoActividad" class="col-form-label small">Tipo actividad</label>
                 </div>
                 <div class="col-auto">
-                    <select id="tipoConstruccion" class="form-select form-select-sm" style="width: 10rem;">
-                        <option>Casa</option>
-                        <option>Edificio</option>
-                        <option>Puente</option>
+                    <select id="tipoActividad" class="form-select form-select-sm" style="width: 10rem;" [(ngModel)]="filtros.tipoActividad" name="tipoActividad">
+                        <option *ngFor="let tipo of tiposActividad" [value]="tipo.idTipoActividad">{{ tipo.nombre}}</option>
                     </select>
                 </div>
                 <div class="col-auto">
                     <label for="encargado" class="col-form-label small">Encargado</label>
                 </div>
-                <div class="col-auto">  
-                    <input type="text" class="form-control form-control-sm" id="encargado">
-                </div>
-                
-
                 <div class="col-auto">
-                    <div class="d-grid gap-2">
-                       
-                        <a [routerLink]="['/actividad-individual']" class="btn btn-primary btn-sm" style="width: 15rem;">Nuevo</a>
-
-                    </div>
+                    <input type="text" class="form-control form-control-sm" id="encargado" [(ngModel)]="filtros.encargado" name="encargado">
                 </div>
             </div>
-    
-            <!-- Fila 2: Nombre, Id, Estado de proyecto -->
+            <!-- Fila 2: Nombre, ID, Estado de actividad -->
             <div class="row gy-2 gx-3 align-items-center">
                 <div class="col-auto">
-                    <label for="nombreProyecto" class="col-form-label small">Nombre</label>
-             
-                </div>
-                <div class="col-auto">  
-                    <input type="text" class="form-control form-control-sm" id="nombreProyecto">
+                    <label for="nombreActividad" class="col-form-label small">Nombre</label>
                 </div>
                 <div class="col-auto">
-                    <label for="idProyecto" class="col-form-label small">ID</label>
+                    <input type="text" class="form-control form-control-sm" id="nombreActividad" [(ngModel)]="filtros.nombre" name="nombre">
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control form-control-sm" id="idProyecto">
+                    <label for="idActividad" class="col-form-label small">ID</label>
                 </div>
                 <div class="col-auto">
-                    <label for="estadoProyecto" class="col-form-label small">Estado de actividad</label>
-                 
+                    <input type="text" class="form-control form-control-sm" id="idActividad" [(ngModel)]="filtros.idActividad" name="idActividad">
                 </div>
                 <div class="col-auto">
-                    <select id="estadoProyecto" class="form-select form-select-sm">
-                        <option>Abierto</option>
-                        <option>Cancelado</option>
-                        <option>Progreso</option>
+                    <label for="estadoActividad" class="col-form-label small">Estado de actividad</label>
+                </div>
+                <div class="col-auto">
+                    <select id="estadoActividad" class="form-select form-select-sm" style="width: 10rem;" [(ngModel)]="filtros.estadoActividad" name="estadoActividad">
+                        <option *ngFor="let estado of estadosActividad" [value]="estado.idEstadoActividad">{{ estado.nombre }}</option>
                     </select>
                 </div>
             </div>
-            <!-- Fila 3: Asignado, priodidad, es comptible. -->
-    
+            <!-- Fila 3: Asignado, Prioridad, ¿Es compra de materiales? -->
             <div class="row gy-2 gx-3 align-items-center">
                 <div class="col-auto">
-                    <label for="estado" class="col-form-label small">Asignado</label>
-                    
+                    <label for="asignado" class="col-form-label small">Asignado</label>
                 </div>
                 <div class="col-auto">
-                  
-                    <input type="text" class="form-control form-control-sm" id="asignado">
-                </div>
-
-                <div class="col-auto">
-                    <label for="priodidad" class="col-form-label small">Priodidad</label>
-                 
+                    <input type="text" class="form-control form-control-sm" id="asignado" [(ngModel)]="filtros.asignado" name="asignado">
                 </div>
                 <div class="col-auto">
-                    <select id="prioridad" class="form-select">
-                        <option>Crítica</option>
-                        <option>Alta</option>
-                        <option>Media</option>
-                        <option>Baja</option>
-                        <option>Opcional</option>
+                    <label for="prioridad" class="col-form-label small">Prioridad</label>
+                </div>
+                <div class="col-auto">
+                    <select id="prioridad" class="form-select form-select-sm" style="width: 10rem;" [(ngModel)]="filtros.prioridad" name="prioridad">
+                        <option *ngFor="let prioridad of prioridades" [value]="prioridad.idPrioridad">{{ prioridad.nombre }}</option>
                     </select>
                 </div>
-
                 <div class="col-auto">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" id="esCompraMateriales" [(ngModel)]="filtros.esCompraMateriales" name="esCompraMateriales">
+                        <label class="form-check-label" for="esCompraMateriales">
                             ¿Es compra de materiales?
                         </label>
                     </div>
                 </div>
-             
             </div>
-
-
-           
-    
             <!-- Fila 4: Fecha inicio, fecha fin -->
             <div class="row gy-2 gx-3 align-items-center">
                 <div class="col-auto">
                     <label for="fechaInicio" class="col-form-label small">Fecha inicio</label>
                 </div>
                 <div class="col-auto">
-             
-                    <input type="date" class="form-control form-control-sm" id="fechaInicio">
-                </div>
-                <div class="col-auto">
-                    <label for="fechaInicio" class="col-form-label small">-----</label>
+                    <input type="date" class="form-control form-control-sm" id="fechaInicio" [(ngModel)]="filtros.fechaInicio" name="fechaInicio">
                 </div>
                 <div class="col-auto">
                     <label for="fechaFin" class="col-form-label small">Fecha fin</label>
-                 
                 </div>
                 <div class="col-auto">
-               
-                    <input type="date" class="form-control form-control-sm" id="fechaFin">
+                    <input type="date" class="form-control form-control-sm" id="fechaFin" [(ngModel)]="filtros.fechaFin" name="fechaFin">
                 </div>
             </div>
-
-            <br>
             <!-- Fila 5: Botón buscar, botón limpiar -->
+             <br>
             <div class="row gy-2 gx-3 align-items-center">
                 <div class="d-flex justify-content-center">
                     <div class="col-auto" style="margin-right: 2rem;">
-                        <button type="submit" class="btn btn-primary btn-sm" style="width: 15rem;">Buscar</button>
+                        <button type="submit" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="width: 15rem; height: 2rem;">
+                            <i class="fa-solid fa-magnifying-glass me-2"></i> Buscar
+                        </button>
                     </div>
-                    
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-secondary btn-sm" style="width: 15rem;">Limpiar</button>     
+                        <button type="button" class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center" style="width: 15rem; height: 2rem;" (click)="limpiarFiltros()">
+                            <i class="fa-solid fa-eraser me-2"></i> Limpiar
+                        </button>
                     </div>
-
                 </div>
-          
-                       
             </div>
         </form>
-
     </div>
-    <br><br><br>
+    <br>
     <div class="d-flex justify-content-center">
         <table class="table table-striped">
             <thead>
-                <tr> 
+                <tr>
                     <th scope="col">#</th>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Tipo actividad</th>
                     <th scope="col">Estado A.</th>
-                    <th scope="col">Priodidad</th>
+                    <th scope="col">Prioridad</th>
                     <th scope="col">Asignado</th>
                     <th scope="col">¿Es C.M.?</th>
                     <th scope="col">Editar</th>
@@ -161,33 +135,56 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <!-- Celda del botón de expansión -->
-                    <td><button class="expand-btn" type="button" (click)="alternarExpansion()">&#8595;</button></td>
-                    <!-- Datos de la fila -->
-                    <td>1</td>
-                    <td>Casa morales</td>
-                    <td>Casa</td>
-                    <td>Abierto</td>
-                    <td>California</td>
-                    <td>Los Angeles</td>
-                    <td>90001</td>
-                    <!-- Botones de acción -->
-                    <td><a [routerLink]="['/editar-proyectos']" class="btn btn-primary btn-sm">Editar</a></td>
-                    <td><button type="button" class="btn btn-info btn-sm">Ver</button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                <tr *ngFor="let actividad of paginatedActividades">
+                    <td>
+                        <button >
+                            &#8595;
+                        </button>
+                    </td>
+                    <td>{{ actividad.idActividad }}</td>
+                    <td>{{ actividad.nombre }}</td>
+                    <td>{{ obtenerNombrePorId(actividad.idTipoActividad, 1) }}</td>
+                    <td>{{ obtenerNombrePorId(actividad.idEstadoActividad, 2) }}</td>
+                    <td>{{ obtenerNombrePorId(actividad.idPrioridad,3) }}</td>
+                    <td>{{ actividad.asignado }}</td>
+                    <td>{{ actividad.esCompraDeMateriales ? 'Sí' : 'No' }}</td>
+                    <td>
+                        <a (click)="editarActividad(actividad)" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-pencil me-2"></i> Editar
+                        </a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm d-flex align-items-center justify-content-center" (click)="verActividad(actividad)">
+                            <i class="fa-solid fa-eye me-2"></i> Ver
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center" (click)="eliminarActividad(actividad.idActividad)">
+                            <i class="fa-solid fa-trash me-2"></i> Eliminar
+                        </button>
+                    </td>
                 </tr>
-                <!-- Fila expandida -->
-                <tr *ngIf="filaExpandida">
-                    <!-- Celda con la información adicional -->
-                    <td colspan="11" style="align-items: center;" value="1">Información adicional sobre Casa morales...</td>
-                </tr>
-                
-             
-             
-    
             </tbody>
         </table>
-       
     </div>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link" href="#" aria-label="Previous" (click)="changePage($event, currentPage - 1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+                    <a class="page-link" href="#" (click)="changePage($event, page)">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === pages.length">
+                    <a class="page-link" href="#" aria-label="Next" (click)="changePage($event, currentPage + 1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Implementación de la paginación aquí -->
 </div>

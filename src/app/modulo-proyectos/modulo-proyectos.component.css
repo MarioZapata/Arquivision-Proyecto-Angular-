@@ -1,3 +1,17 @@
 .row{
     margin-bottom: 1rem;
 }
+.btn {
+    padding: 0.5rem 1rem; /* Ajusta el padding para tamaño del botón */
+    font-size: 1rem; /* Tamaño de fuente del botón */
+  }
+  
+  .btn i {
+    font-size: 1.25rem; /* Tamaño del ícono dentro del botón */
+  }
+  
+  /* Si deseas agregar un espaciado adicional entre el encabezado y el botón */
+  h1 {
+    margin-bottom: 2rem; /* Ajusta según tu diseño */
+  }
+  
